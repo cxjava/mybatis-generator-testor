@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+  <sqlMap namespace="common" >
+    <sql id="common.Oracle_Pagination_Head" >
+      <dynamic >
+        <isNotNull property="oracleStart" >
+          <isNotNull property="oracleEnd" >
+            <![CDATA[ select * from ( select row_.*, rownum rownum_ from ( ]]>
+          </isNotNull>
+        </isNotNull>
+      </dynamic>
+    </sql>
+    <sql id="common.Oracle_Pagination_Tail" >
+      <dynamic >
+        <isNotNull property="oracleStart" >
+          <isNotNull property="oracleEnd" >
+            <![CDATA[ ) row_ where rownum <= #oracleEnd# ) where rownum_ > #oracleStart# ]]>
+          </isNotNull>
+        </isNotNull>
+      </dynamic>
+    </sql>
+    <sql id="common.Where">
+		<dynamic prepend="where">
+		<!-- oracle like 防注入 -->
+			<isNotNull property="username1" prepend="and">username1 like '%'||#username1#||'%'</isNotNull>
+		<!-- mysql like 防注入 -->
+			<isNotNull property="username" prepend="and">username like CONCAT('%', #username#, '%')</isNotNull>
+		</dynamic>
+	</sql>
+	<!-- 
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String, Object>> dynamicSql(Criteria example) {
+		List<HashMap<String, Object>> list = (List<HashMap<String, Object>>) this
+		.getSqlMapClientTemplate().queryForList("common.dynamicSql",
+				example);
+		return list;
+	}
+	<select id="common.dynamicSql" parameterClass="com.whty.ota.pojo.Criteria"
+		resultClass="java.util.HashMap" remapResults="true">
+		<![CDATA[ $dynamicSql$ ]]>
+	</select>
+	 -->
+
+	<!-- 
+	<isNotNull prepend="and" property="condition.startTime">
+          <![CDATA[ CREATE_TIME >= TO_DATE(#condition.startTime#, 'YYYY-MM-DD HH24:MI:SS') ]]>
+	</isNotNull>
+	 -->
+	<!-- SEQ_T_LOG.nextval -->
+	<!-- select sys_guid()  from dual; -->
+	<!-- select SEQ_T_PROJECT.nextval  from dual; -->
+	
+  </sqlMap>

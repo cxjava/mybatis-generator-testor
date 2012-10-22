@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="oraclemybatis.dao.TradeMapper" >
+  <resultMap id="BaseResultMap" type="oraclemybatis.pojo.Trade" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MYACCOUNT" property="myaccount" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="TIME" property="time" jdbcType="DATE" />
+    <result column="OTHERACCOUNT" property="otheraccount" jdbcType="VARCHAR" />
+    <result column="BALANCE" property="balance" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.myaccount != null" >
+         and MYACCOUNT = #{condition.myaccount,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.remark != null" >
+         and REMARK = #{condition.remark,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.type != null" >
+         and TYPE = #{condition.type,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.time != null" >
+         and TIME = #{condition.time,jdbcType=DATE}
+      </if>
+      <if test="condition.otheraccount != null" >
+         and OTHERACCOUNT = #{condition.otheraccount,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.balance != null" >
+         and BALANCE = #{condition.balance,jdbcType=DECIMAL}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="example.condition.myaccount != null" >
+         and MYACCOUNT = #{example.condition.myaccount,jdbcType=VARCHAR}
+      </if>
+      <if test="example.condition.remark != null" >
+         and REMARK = #{example.condition.remark,jdbcType=VARCHAR}
+      </if>
+      <if test="example.condition.type != null" >
+         and TYPE = #{example.condition.type,jdbcType=VARCHAR}
+      </if>
+      <if test="example.condition.time != null" >
+         and TIME = #{example.condition.time,jdbcType=DATE}
+      </if>
+      <if test="example.condition.otheraccount != null" >
+         and OTHERACCOUNT = #{example.condition.otheraccount,jdbcType=VARCHAR}
+      </if>
+      <if test="example.condition.balance != null" >
+         and BALANCE = #{example.condition.balance,jdbcType=DECIMAL}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, MYACCOUNT, REMARK, TYPE, TIME, OTHERACCOUNT, BALANCE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="oraclemybatis.pojo.Criteria" >
+    <include refid="common.Oracle_Pagination_Head" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from TRADE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Oracle_Pagination_Tail" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TRADE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TRADE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="oraclemybatis.pojo.Criteria" >
+    delete from TRADE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="oraclemybatis.pojo.Trade" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE" >
+      select sys_guid() from dual
+    </selectKey>
+    insert into TRADE (ID, MYACCOUNT, REMARK, 
+      TYPE, TIME, OTHERACCOUNT, 
+      BALANCE)
+    values (#{id,jdbcType=VARCHAR}, #{myaccount,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{time,jdbcType=DATE}, #{otheraccount,jdbcType=VARCHAR}, 
+      #{balance,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="oraclemybatis.pojo.Trade" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE" >
+      select sys_guid() from dual
+    </selectKey>
+    insert into TRADE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ID,
+      <if test="myaccount != null" >
+        MYACCOUNT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="time != null" >
+        TIME,
+      </if>
+      <if test="otheraccount != null" >
+        OTHERACCOUNT,
+      </if>
+      <if test="balance != null" >
+        BALANCE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=VARCHAR},
+      <if test="myaccount != null" >
+        #{myaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="otheraccount != null" >
+        #{otheraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="oraclemybatis.pojo.Criteria" resultType="java.lang.Integer" >
+    select count(*) from TRADE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TRADE
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.myaccount != null" >
+        MYACCOUNT = #{record.myaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        TIME = #{record.time,jdbcType=DATE},
+      </if>
+      <if test="record.otheraccount != null" >
+        OTHERACCOUNT = #{record.otheraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balance != null" >
+        BALANCE = #{record.balance,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TRADE
+    set ID = #{record.id,jdbcType=VARCHAR},
+      MYACCOUNT = #{record.myaccount,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      TIME = #{record.time,jdbcType=DATE},
+      OTHERACCOUNT = #{record.otheraccount,jdbcType=VARCHAR},
+      BALANCE = #{record.balance,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="oraclemybatis.pojo.Trade" >
+    update TRADE
+    <set >
+      <if test="myaccount != null" >
+        MYACCOUNT = #{myaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        TIME = #{time,jdbcType=DATE},
+      </if>
+      <if test="otheraccount != null" >
+        OTHERACCOUNT = #{otheraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        BALANCE = #{balance,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="oraclemybatis.pojo.Trade" >
+    update TRADE
+    set MYACCOUNT = #{myaccount,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      TIME = #{time,jdbcType=DATE},
+      OTHERACCOUNT = #{otheraccount,jdbcType=VARCHAR},
+      BALANCE = #{balance,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

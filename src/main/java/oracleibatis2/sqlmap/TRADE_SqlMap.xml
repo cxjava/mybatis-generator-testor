@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TRADE" >
+  <resultMap id="BaseResultMap" class="oracleibatis2.pojo.Trade" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MYACCOUNT" property="myaccount" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="TIME" property="time" jdbcType="DATE" />
+    <result column="OTHERACCOUNT" property="otheraccount" jdbcType="VARCHAR" />
+    <result column="BALANCE" property="balance" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="condition.myaccount" >
+        MYACCOUNT = #condition.myaccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="condition.remark" >
+        REMARK = #condition.remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="condition.type" >
+        TYPE = #condition.type:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="condition.time" >
+        TIME = #condition.time:DATE#
+      </isNotNull>
+      <isNotNull prepend="and" property="condition.otheraccount" >
+        OTHERACCOUNT = #condition.otheraccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="and" property="condition.balance" >
+        BALANCE = #condition.balance:DECIMAL#
+      </isNotNull>
+    </dynamic>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, MYACCOUNT, REMARK, TYPE, TIME, OTHERACCOUNT, BALANCE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterClass="oracleibatis2.pojo.Criteria" >
+    <include refid="common.Oracle_Pagination_Head" />
+    select
+    <isParameterPresent >
+      <isEqual property="distinct" compareValue="true" >
+        distinct
+      </isEqual>
+    </isParameterPresent>
+    <include refid="TRADE.Base_Column_List" />
+    from TRADE
+    <isParameterPresent >
+      <include refid="TRADE.Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+    <include refid="common.Oracle_Pagination_Tail" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="oracleibatis2.pojo.Trade" >
+    select 
+    <include refid="TRADE.Base_Column_List" />
+    from TRADE
+    where ID = #id:VARCHAR#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="oracleibatis2.pojo.Trade" >
+    delete from TRADE
+    where ID = #id:VARCHAR#
+  </delete>
+  <delete id="deleteByExample" parameterClass="oracleibatis2.pojo.Criteria" >
+    delete from TRADE
+    <include refid="TRADE.Example_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterClass="oracleibatis2.pojo.Trade" >
+    <selectKey resultClass="java.lang.String" keyProperty="id" >
+      select sys_guid() from dual
+    </selectKey>
+    insert into TRADE (ID, MYACCOUNT, REMARK, TYPE, TIME, 
+      OTHERACCOUNT, BALANCE)
+    values (#id:VARCHAR#, #myaccount:VARCHAR#, #remark:VARCHAR#, #type:VARCHAR#, #time:DATE#, 
+      #otheraccount:VARCHAR#, #balance:DECIMAL#)
+  </insert>
+  <insert id="insertSelective" parameterClass="oracleibatis2.pojo.Trade" >
+    <selectKey resultClass="java.lang.String" keyProperty="id" >
+      select sys_guid() from dual
+    </selectKey>
+    insert into TRADE
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        ID
+      </isNotNull>
+      <isNotNull prepend="," property="myaccount" >
+        MYACCOUNT
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        REMARK
+      </isNotNull>
+      <isNotNull prepend="," property="type" >
+        TYPE
+      </isNotNull>
+      <isNotNull prepend="," property="time" >
+        TIME
+      </isNotNull>
+      <isNotNull prepend="," property="otheraccount" >
+        OTHERACCOUNT
+      </isNotNull>
+      <isNotNull prepend="," property="balance" >
+        BALANCE
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        #id:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="myaccount" >
+        #myaccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        #remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="type" >
+        #type:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="time" >
+        #time:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="otheraccount" >
+        #otheraccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="balance" >
+        #balance:DECIMAL#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="countByExample" parameterClass="oracleibatis2.pojo.Criteria" resultClass="java.lang.Integer" >
+    select count(*) from TRADE
+    <include refid="TRADE.Example_Where_Clause" />
+  </select>
+  <update id="updateByExampleSelective" >
+    update TRADE
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.id" >
+        ID = #record.id:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.myaccount" >
+        MYACCOUNT = #record.myaccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.remark" >
+        REMARK = #record.remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.type" >
+        TYPE = #record.type:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.time" >
+        TIME = #record.time:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="record.otheraccount" >
+        OTHERACCOUNT = #record.otheraccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="record.balance" >
+        BALANCE = #record.balance:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="TRADE.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByExample" >
+    update TRADE
+    set ID = #record.id:VARCHAR#,
+      MYACCOUNT = #record.myaccount:VARCHAR#,
+      REMARK = #record.remark:VARCHAR#,
+      TYPE = #record.type:VARCHAR#,
+      TIME = #record.time:DATE#,
+      OTHERACCOUNT = #record.otheraccount:VARCHAR#,
+      BALANCE = #record.balance:DECIMAL#
+    <isParameterPresent >
+      <include refid="TRADE.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="oracleibatis2.pojo.Trade" >
+    update TRADE
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="myaccount" >
+        MYACCOUNT = #myaccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        REMARK = #remark:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="type" >
+        TYPE = #type:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="time" >
+        TIME = #time:DATE#
+      </isNotNull>
+      <isNotNull prepend="," property="otheraccount" >
+        OTHERACCOUNT = #otheraccount:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="balance" >
+        BALANCE = #balance:DECIMAL#
+      </isNotNull>
+    </dynamic>
+    where ID = #id:VARCHAR#
+  </update>
+  <update id="updateByPrimaryKey" parameterClass="oracleibatis2.pojo.Trade" >
+    update TRADE
+    set MYACCOUNT = #myaccount:VARCHAR#,
+      REMARK = #remark:VARCHAR#,
+      TYPE = #type:VARCHAR#,
+      TIME = #time:DATE#,
+      OTHERACCOUNT = #otheraccount:VARCHAR#,
+      BALANCE = #balance:DECIMAL#
+    where ID = #id:VARCHAR#
+  </update>
+</sqlMap>

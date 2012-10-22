@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- resource="org/mybatis/example/config.properties" -->
+	<properties>
+		<property name="username" value="dev_user" />
+		<property name="password" value="F2Fa3!33TYyg" />
+	</properties>
+
+	<!-- 这些是极其重要的调整，它们会修改 MyBat is 在运行时的行为方式
+	 -->
+	<!-- 类型别名是为 Java 类型命名一个短的名字。它只和 XML 配置有关，只用来减少类完全限定名的多余部分 -->
+	<!-- 也可以在spring里面配置SqlSessionFactoryBean里面的 <property name="typeAliasesPackage" value="com.whty.bank.pojo" />来配置 -->
+	<typeAliases>
+		<!-- 使用这个配置，“Criteria”可以任意用来替代“com.whty.bank.pojo.Criteria”所使用的地方 -->
+		<typeAlias alias="Amount" type="com.whty.bank.pojo.Amount" />
+		<typeAlias alias="Criteria" type="com.whty.bank.pojo.Criteria" />
+		<typeAlias alias="JQReturn" type="com.whty.bank.pojo.JQReturn" />
+		<typeAlias alias="QueryAccount" type="com.whty.bank.pojo.QueryAccount" />
+	</typeAliases>
+
+	<!-- MyBat is 允许你在某一点拦截已映射语句执行的调用 
+	<plugins>
+	-->
+		<!-- 指定数据库分页方言Dialect, 其它方言:OracleDialect,SQLServerDialect,SybaseDialect,DB2Dialect,PostgreSQLDialect,MySQLDialect,DerbyDialect,HSQLDialect 
+		<plugin interceptor="com.whty.commons.plugin.OffsetLimitInterceptor">
+			<property name="dialectClass" value="com.whty.commons.plugin.OracleDialect" />
+		</plugin>
+	</plugins>
+		-->
+
+	<!-- 定义 SQL 映射语句 -->
+	<!-- mapper文件的装载通过spring的mapperLocations指定 -->
+	<mappers>
+		<mapper resource="com/whty/bank/sqlmap/AmountMapper.xml" />
+	</mappers>
+</configuration>

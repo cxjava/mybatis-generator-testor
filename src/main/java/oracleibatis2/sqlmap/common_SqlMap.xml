@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="common" >
+  <sql id="Oracle_Pagination_Head" >
+    <dynamic >
+      <isNotNull property="oracleStart" >
+        <isNotNull property="oracleEnd" >
+          <![CDATA[ select * from ( select row_.*, rownum rownum_ from ( ]]>
+        </isNotNull>
+      </isNotNull>
+    </dynamic>
+  </sql>
+  <sql id="Oracle_Pagination_Tail" >
+    <dynamic >
+      <isNotNull property="oracleStart" >
+        <isNotNull property="oracleEnd" >
+          <![CDATA[ ) row_ where rownum <= #oracleEnd# ) where rownum_ > #oracleStart# ]]>
+        </isNotNull>
+      </isNotNull>
+    </dynamic>
+  </sql>
+</sqlMap>

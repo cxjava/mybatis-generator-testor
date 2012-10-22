@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenxin.j2ee.dao.BaseRoleModuleMapper" >
+  <resultMap id="BaseResultMap" type="com.chenxin.j2ee.pojo.BaseRoleModule" >
+    <id column="role_module_id" property="roleModuleId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="module_id" property="moduleId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.roleId != null" >
+         and role_id = #{condition.roleId}
+      </if>
+      <if test="condition.moduleId != null" >
+         and module_id = #{condition.moduleId}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    role_module_id, role_id, module_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chenxin.j2ee.pojo.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from base_role_module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_role_module
+    where role_module_id = #{roleModuleId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from base_role_module
+    where role_module_id = #{roleModuleId}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chenxin.j2ee.pojo.Criteria" >
+    delete from base_role_module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chenxin.j2ee.pojo.BaseRoleModule" >
+    insert into base_role_module (role_module_id, role_id, module_id)
+    values (#{roleModuleId}, #{roleId}, #{moduleId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chenxin.j2ee.pojo.BaseRoleModule" >
+    insert into base_role_module
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleModuleId != null" >
+        role_module_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="moduleId != null" >
+        module_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleModuleId != null" >
+        #{roleModuleId},
+      </if>
+      <if test="roleId != null" >
+        #{roleId},
+      </if>
+      <if test="moduleId != null" >
+        #{moduleId},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chenxin.j2ee.pojo.Criteria" resultType="java.lang.Integer" >
+    select count(*) from base_role_module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update base_role_module
+    <set >
+      <if test="record.roleModuleId != null" >
+        role_module_id = #{record.roleModuleId},
+      </if>
+      <if test="record.roleId != null" >
+        role_id = #{record.roleId},
+      </if>
+      <if test="record.moduleId != null" >
+        module_id = #{record.moduleId},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update base_role_module
+    set role_module_id = #{record.roleModuleId},
+      role_id = #{record.roleId},
+      module_id = #{record.moduleId}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chenxin.j2ee.pojo.BaseRoleModule" >
+    update base_role_module
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId},
+      </if>
+      <if test="moduleId != null" >
+        module_id = #{moduleId},
+      </if>
+    </set>
+    where role_module_id = #{roleModuleId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chenxin.j2ee.pojo.BaseRoleModule" >
+    update base_role_module
+    set role_id = #{roleId},
+      module_id = #{moduleId}
+    where role_module_id = #{roleModuleId}
+  </update>
+</mapper>

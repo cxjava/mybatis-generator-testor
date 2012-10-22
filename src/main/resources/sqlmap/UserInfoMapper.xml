@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.whty.tsm.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.whty.tsm.pojo.UserInfo" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="PASSWD" property="passwd" jdbcType="VARCHAR" />
+    <result column="MSISDN" property="msisdn" jdbcType="VARCHAR" />
+    <result column="ICCID" property="iccid" jdbcType="CHAR" />
+    <result column="IMSI" property="imsi" jdbcType="CHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="DECIMAL" />
+    <result column="ADDR" property="addr" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.status != null" >
+         and STATUS = #{condition.status}
+      </if>
+      <if test="condition.passwd != null" >
+         and PASSWD = #{condition.passwd}
+      </if>
+      <if test="condition.msisdn != null" >
+         and MSISDN = #{condition.msisdn}
+      </if>
+      <if test="condition.iccid != null" >
+         and ICCID = #{condition.iccid}
+      </if>
+      <if test="condition.imsi != null" >
+         and IMSI = #{condition.imsi}
+      </if>
+      <if test="condition.name != null" >
+         and NAME = #{condition.name}
+      </if>
+      <if test="condition.sex != null" >
+         and SEX = #{condition.sex}
+      </if>
+      <if test="condition.addr != null" >
+         and ADDR = #{condition.addr}
+      </if>
+      <if test="condition.comments != null" >
+         and COMMENTS = #{condition.comments}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, STATUS, PASSWD, MSISDN, ICCID, IMSI, NAME, SEX, ADDR, COMMENTS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.whty.tsm.pojo.Criteria" >
+    <include refid="common.Oracle_Pagination_Head" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Oracle_Pagination_Tail" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_INFO
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from USER_INFO
+    where ID = #{id}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.whty.tsm.pojo.Criteria" >
+    delete from USER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.whty.tsm.pojo.UserInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
+      select SEQ_USER_INFO.NEXTVAL from dual
+    </selectKey>
+    insert into USER_INFO (ID, STATUS, PASSWD, MSISDN, ICCID, IMSI, NAME, SEX, 
+      ADDR, COMMENTS)
+    values (#{id}, #{status}, #{passwd}, #{msisdn}, #{iccid}, #{imsi}, #{name}, #{sex}, 
+      #{addr}, #{comments})
+  </insert>
+  <insert id="insertSelective" parameterType="com.whty.tsm.pojo.UserInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
+      select SEQ_USER_INFO.NEXTVAL from dual
+    </selectKey>
+    insert into USER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ID,
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="passwd != null" >
+        PASSWD,
+      </if>
+      <if test="msisdn != null" >
+        MSISDN,
+      </if>
+      <if test="iccid != null" >
+        ICCID,
+      </if>
+      <if test="imsi != null" >
+        IMSI,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="addr != null" >
+        ADDR,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id},
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="passwd != null" >
+        #{passwd},
+      </if>
+      <if test="msisdn != null" >
+        #{msisdn},
+      </if>
+      <if test="iccid != null" >
+        #{iccid},
+      </if>
+      <if test="imsi != null" >
+        #{imsi},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="sex != null" >
+        #{sex},
+      </if>
+      <if test="addr != null" >
+        #{addr},
+      </if>
+      <if test="comments != null" >
+        #{comments},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.whty.tsm.pojo.Criteria" resultType="java.lang.Integer" >
+    select count(*) from USER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update USER_INFO
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status},
+      </if>
+      <if test="record.passwd != null" >
+        PASSWD = #{record.passwd},
+      </if>
+      <if test="record.msisdn != null" >
+        MSISDN = #{record.msisdn},
+      </if>
+      <if test="record.iccid != null" >
+        ICCID = #{record.iccid},
+      </if>
+      <if test="record.imsi != null" >
+        IMSI = #{record.imsi},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name},
+      </if>
+      <if test="record.sex != null" >
+        SEX = #{record.sex},
+      </if>
+      <if test="record.addr != null" >
+        ADDR = #{record.addr},
+      </if>
+      <if test="record.comments != null" >
+        COMMENTS = #{record.comments},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update USER_INFO
+    set ID = #{record.id},
+      STATUS = #{record.status},
+      PASSWD = #{record.passwd},
+      MSISDN = #{record.msisdn},
+      ICCID = #{record.iccid},
+      IMSI = #{record.imsi},
+      NAME = #{record.name},
+      SEX = #{record.sex},
+      ADDR = #{record.addr},
+      COMMENTS = #{record.comments}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.whty.tsm.pojo.UserInfo" >
+    update USER_INFO
+    <set >
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="passwd != null" >
+        PASSWD = #{passwd},
+      </if>
+      <if test="msisdn != null" >
+        MSISDN = #{msisdn},
+      </if>
+      <if test="iccid != null" >
+        ICCID = #{iccid},
+      </if>
+      <if test="imsi != null" >
+        IMSI = #{imsi},
+      </if>
+      <if test="name != null" >
+        NAME = #{name},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex},
+      </if>
+      <if test="addr != null" >
+        ADDR = #{addr},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.whty.tsm.pojo.UserInfo" >
+    update USER_INFO
+    set STATUS = #{status},
+      PASSWD = #{passwd},
+      MSISDN = #{msisdn},
+      ICCID = #{iccid},
+      IMSI = #{imsi},
+      NAME = #{name},
+      SEX = #{sex},
+      ADDR = #{addr},
+      COMMENTS = #{comments}
+    where ID = #{id}
+  </update>
+</mapper>

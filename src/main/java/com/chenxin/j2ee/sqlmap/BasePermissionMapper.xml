@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chenxin.j2ee.dao.BasePermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.chenxin.j2ee.pojo.BasePermission" >
+    <id column="permission_id" property="permissionId" jdbcType="INTEGER" />
+    <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+    <result column="permission_value" property="permissionValue" jdbcType="VARCHAR" />
+    <result column="module_id" property="moduleId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="condition.permissionName != null" >
+         and permission_name = #{condition.permissionName}
+      </if>
+      <if test="condition.permissionValue != null" >
+         and permission_value = #{condition.permissionValue}
+      </if>
+      <if test="condition.moduleId != null" >
+         and module_id = #{condition.moduleId}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    permission_id, permission_name, permission_value, module_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chenxin.j2ee.pojo.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from base_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_permission
+    where permission_id = #{permissionId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from base_permission
+    where permission_id = #{permissionId}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chenxin.j2ee.pojo.Criteria" >
+    delete from base_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chenxin.j2ee.pojo.BasePermission" >
+    insert into base_permission (permission_id, permission_name, permission_value, module_id)
+    values (#{permissionId}, #{permissionName}, #{permissionValue}, #{moduleId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.chenxin.j2ee.pojo.BasePermission" >
+    insert into base_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissionId != null" >
+        permission_id,
+      </if>
+      <if test="permissionName != null" >
+        permission_name,
+      </if>
+      <if test="permissionValue != null" >
+        permission_value,
+      </if>
+      <if test="moduleId != null" >
+        module_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissionId != null" >
+        #{permissionId},
+      </if>
+      <if test="permissionName != null" >
+        #{permissionName},
+      </if>
+      <if test="permissionValue != null" >
+        #{permissionValue},
+      </if>
+      <if test="moduleId != null" >
+        #{moduleId},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chenxin.j2ee.pojo.Criteria" resultType="java.lang.Integer" >
+    select count(*) from base_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update base_permission
+    <set >
+      <if test="record.permissionId != null" >
+        permission_id = #{record.permissionId},
+      </if>
+      <if test="record.permissionName != null" >
+        permission_name = #{record.permissionName},
+      </if>
+      <if test="record.permissionValue != null" >
+        permission_value = #{record.permissionValue},
+      </if>
+      <if test="record.moduleId != null" >
+        module_id = #{record.moduleId},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update base_permission
+    set permission_id = #{record.permissionId},
+      permission_name = #{record.permissionName},
+      permission_value = #{record.permissionValue},
+      module_id = #{record.moduleId}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chenxin.j2ee.pojo.BasePermission" >
+    update base_permission
+    <set >
+      <if test="permissionName != null" >
+        permission_name = #{permissionName},
+      </if>
+      <if test="permissionValue != null" >
+        permission_value = #{permissionValue},
+      </if>
+      <if test="moduleId != null" >
+        module_id = #{moduleId},
+      </if>
+    </set>
+    where permission_id = #{permissionId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chenxin.j2ee.pojo.BasePermission" >
+    update base_permission
+    set permission_name = #{permissionName},
+      permission_value = #{permissionValue},
+      module_id = #{moduleId}
+    where permission_id = #{permissionId}
+  </update>
+</mapper>

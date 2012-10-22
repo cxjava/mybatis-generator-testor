@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="trade" >
+  <resultMap id="BaseResultMap" class="mysqlibatis2.pojo.Trade" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="myaccount" property="myaccount" jdbcType="VARCHAR" />
+    <result column="otheraccount" property="otheraccount" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <dynamic prepend="where" >
+      <isNotNull prepend="and" property="condition.myaccount" >
+        myaccount = #condition.myaccount#
+      </isNotNull>
+      <isNotNull prepend="and" property="condition.otheraccount" >
+        otheraccount = #condition.otheraccount#
+      </isNotNull>
+      <isNotNull prepend="and" property="condition.type" >
+        type = #condition.type#
+      </isNotNull>
+      <isNotNull prepend="and" property="condition.balance" >
+        balance = #condition.balance#
+      </isNotNull>
+      <isNotNull prepend="and" property="condition.time" >
+        time = #condition.time#
+      </isNotNull>
+      <isNotNull prepend="and" property="condition.remark" >
+        remark = #condition.remark#
+      </isNotNull>
+    </dynamic>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, myaccount, otheraccount, type, balance, time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterClass="mysqlibatis2.pojo.Criteria" >
+    select
+    <isParameterPresent >
+      <isEqual property="distinct" compareValue="true" >
+        distinct
+      </isEqual>
+    </isParameterPresent>
+    <include refid="trade.Base_Column_List" />
+    from trade
+    <isParameterPresent >
+      <include refid="trade.Example_Where_Clause" />
+      <isNotNull property="orderByClause" >
+        order by $orderByClause$
+      </isNotNull>
+    </isParameterPresent>
+    <include refid="common.Mysql_Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterClass="mysqlibatis2.pojo.Trade" >
+    select 
+    <include refid="trade.Base_Column_List" />
+    from trade
+    where id = #id#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="mysqlibatis2.pojo.Trade" >
+    delete from trade
+    where id = #id#
+  </delete>
+  <delete id="deleteByExample" parameterClass="mysqlibatis2.pojo.Criteria" >
+    delete from trade
+    <include refid="trade.Example_Where_Clause" />
+  </delete>
+  <insert id="insert" parameterClass="mysqlibatis2.pojo.Trade" >
+    <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trade (id, myaccount, otheraccount, type, balance, time, remark)
+    values (#id#, #myaccount#, #otheraccount#, #type#, #balance#, #time#, #remark#)
+  </insert>
+  <insert id="insertSelective" parameterClass="mysqlibatis2.pojo.Trade" >
+    <selectKey resultClass="java.lang.Integer" keyProperty="id" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into trade
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        id
+      </isNotNull>
+      <isNotNull prepend="," property="myaccount" >
+        myaccount
+      </isNotNull>
+      <isNotNull prepend="," property="otheraccount" >
+        otheraccount
+      </isNotNull>
+      <isNotNull prepend="," property="type" >
+        type
+      </isNotNull>
+      <isNotNull prepend="," property="balance" >
+        balance
+      </isNotNull>
+      <isNotNull prepend="," property="time" >
+        time
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark
+      </isNotNull>
+      )
+    </dynamic>
+    values
+    <dynamic prepend="(" >
+      <isNotNull prepend="," property="id" >
+        #id#
+      </isNotNull>
+      <isNotNull prepend="," property="myaccount" >
+        #myaccount#
+      </isNotNull>
+      <isNotNull prepend="," property="otheraccount" >
+        #otheraccount#
+      </isNotNull>
+      <isNotNull prepend="," property="type" >
+        #type#
+      </isNotNull>
+      <isNotNull prepend="," property="balance" >
+        #balance#
+      </isNotNull>
+      <isNotNull prepend="," property="time" >
+        #time#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        #remark#
+      </isNotNull>
+      )
+    </dynamic>
+  </insert>
+  <select id="countByExample" parameterClass="mysqlibatis2.pojo.Criteria" resultClass="java.lang.Integer" >
+    select count(*) from trade
+    <include refid="trade.Example_Where_Clause" />
+  </select>
+  <update id="updateByExampleSelective" >
+    update trade
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="record.id" >
+        id = #record.id#
+      </isNotNull>
+      <isNotNull prepend="," property="record.myaccount" >
+        myaccount = #record.myaccount#
+      </isNotNull>
+      <isNotNull prepend="," property="record.otheraccount" >
+        otheraccount = #record.otheraccount#
+      </isNotNull>
+      <isNotNull prepend="," property="record.type" >
+        type = #record.type#
+      </isNotNull>
+      <isNotNull prepend="," property="record.balance" >
+        balance = #record.balance#
+      </isNotNull>
+      <isNotNull prepend="," property="record.time" >
+        time = #record.time#
+      </isNotNull>
+      <isNotNull prepend="," property="record.remark" >
+        remark = #record.remark#
+      </isNotNull>
+    </dynamic>
+    <isParameterPresent >
+      <include refid="trade.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByExample" >
+    update trade
+    set id = #record.id#,
+      myaccount = #record.myaccount#,
+      otheraccount = #record.otheraccount#,
+      type = #record.type#,
+      balance = #record.balance#,
+      time = #record.time#,
+      remark = #record.remark#
+    <isParameterPresent >
+      <include refid="trade.Example_Where_Clause" />
+    </isParameterPresent>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="mysqlibatis2.pojo.Trade" >
+    update trade
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="myaccount" >
+        myaccount = #myaccount#
+      </isNotNull>
+      <isNotNull prepend="," property="otheraccount" >
+        otheraccount = #otheraccount#
+      </isNotNull>
+      <isNotNull prepend="," property="type" >
+        type = #type#
+      </isNotNull>
+      <isNotNull prepend="," property="balance" >
+        balance = #balance#
+      </isNotNull>
+      <isNotNull prepend="," property="time" >
+        time = #time#
+      </isNotNull>
+      <isNotNull prepend="," property="remark" >
+        remark = #remark#
+      </isNotNull>
+    </dynamic>
+    where id = #id#
+  </update>
+  <update id="updateByPrimaryKey" parameterClass="mysqlibatis2.pojo.Trade" >
+    update trade
+    set myaccount = #myaccount#,
+      otheraccount = #otheraccount#,
+      type = #type#,
+      balance = #balance#,
+      time = #time#,
+      remark = #remark#
+    where id = #id#
+  </update>
+</sqlMap>
